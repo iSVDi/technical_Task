@@ -1,0 +1,30 @@
+PODS:
+  - Alamofire (5.7.1)
+  - Moya (15.0.0):
+    - Moya/Core (= 15.0.0)
+  - Moya/Core (15.0.0):
+    - Alamofire (~> 5.0)
+  - PKHUD (5.3.0)
+  - TinyConstraints (4.0.2)
+
+DEPENDENCIES:
+  - Moya (= 15.0.0)
+  - PKHUD (= 5.3.0)
+  - TinyConstraints (= 4.0.2)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - Moya
+    - PKHUD
+    - TinyConstraints
+
+SPEC CHECKSUMS:
+  Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
+  Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
+  PKHUD: 98f3e4bc904b9c916f1c5bb6d765365b5357291b
+  TinyConstraints: 7b7ccc0c485bb3bb47082138ff28bc33cd49897f
+
+PODFILE CHECKSUM: 5ebea74e5a2a6d4dc76903efe47cf92c5d196682
+
+COCOAPODS: 1.12.1
