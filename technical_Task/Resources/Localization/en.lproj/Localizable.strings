@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  technical_Task
+
+  Created by Daniil on 07.09.2023.
+  
+*/
+
+//Common
+"BackTitle" = "Back";
+
+//Alerts
+"OkTitle" = "OK";
+"ErrorTitle" = "Error";
