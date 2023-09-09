@@ -9,11 +9,14 @@
 /* Begin PBXBuildFile section */
 		AEBE5AAEAE507F036714415D /* Pods_technical_Task.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52169E2C49CDE9E5FC6DD7AD /* Pods_technical_Task.framework */; };
 		F34678262AAC3A1D00C12A50 /* Coin.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34678252AAC3A1D00C12A50 /* Coin.swift */; };
+		F359D0822AAC4C2900BA427A /* UINavigationBarAppearance+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = F359D0812AAC4C2900BA427A /* UINavigationBarAppearance+Convenience.swift */; };
+		F359D0862AAC4FEC00BA427A /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F359D0852AAC4FEC00BA427A /* SettingsViewController.swift */; };
+		F359D0882AAC5B2700BA427A /* SettingPreferenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F359D0872AAC5B2700BA427A /* SettingPreferenceManager.swift */; };
 		F370BE112AA9BC09006F0461 /* UIView+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = F370BE102AA9BC09006F0461 /* UIView+Convenience.swift */; };
 		F370BE132AA9BC5C006F0461 /* UIViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F370BE122AA9BC5C006F0461 /* UIViewController+Alerts.swift */; };
 		F370BE152AA9BCB7006F0461 /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F370BE142AA9BCB7006F0461 /* LocalizedStrings.swift */; };
 		F3ADA5CC2AA99C0F00982D05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3ADA5CB2AA99C0F00982D05 /* AppDelegate.swift */; };
-		F3ADA5D02AA99C0F00982D05 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3ADA5CF2AA99C0F00982D05 /* ViewController.swift */; };
+		F3ADA5D02AA99C0F00982D05 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3ADA5CF2AA99C0F00982D05 /* MainViewController.swift */; };
 		F3ADA5D52AA99C1000982D05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3ADA5D42AA99C1000982D05 /* Assets.xcassets */; };
 		F3B9DFB62AAB4E63004CEFA4 /* ApiRequestsTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B9DFB52AAB4E63004CEFA4 /* ApiRequestsTypes.swift */; };
 		F3B9DFB82AAB5352004CEFA4 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B9DFB72AAB5352004CEFA4 /* MainViewModel.swift */; };
@@ -39,16 +42,19 @@
 		52169E2C49CDE9E5FC6DD7AD /* Pods_technical_Task.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_technical_Task.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7308F61CD145B63AC183C78 /* Pods-technical_Task.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-technical_Task.debug.xcconfig"; path = "Target Support Files/Pods-technical_Task/Pods-technical_Task.debug.xcconfig"; sourceTree = "<group>"; };
 		F34678252AAC3A1D00C12A50 /* Coin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coin.swift; sourceTree = "<group>"; };
+		F359D0812AAC4C2900BA427A /* UINavigationBarAppearance+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBarAppearance+Convenience.swift"; sourceTree = "<group>"; };
+		F359D0852AAC4FEC00BA427A /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		F359D0872AAC5B2700BA427A /* SettingPreferenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPreferenceManager.swift; sourceTree = "<group>"; };
 		F370BE102AA9BC09006F0461 /* UIView+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Convenience.swift"; sourceTree = "<group>"; };
 		F370BE122AA9BC5C006F0461 /* UIViewController+Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alerts.swift"; sourceTree = "<group>"; };
 		F370BE142AA9BCB7006F0461 /* LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedStrings.swift; sourceTree = "<group>"; };
 		F3ADA5C82AA99C0F00982D05 /* technical_Task.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = technical_Task.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3ADA5CB2AA99C0F00982D05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F3ADA5CF2AA99C0F00982D05 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F3ADA5CF2AA99C0F00982D05 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		F3ADA5D42AA99C1000982D05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3ADA5D92AA99C1000982D05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F3B9DFB52AAB4E63004CEFA4 /* ApiRequestsTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequestsTypes.swift; sourceTree = "<group>"; };
-		F3B9DFB72AAB5352004CEFA4 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainViewModel.swift; path = ../Api/MainViewModel.swift; sourceTree = "<group>"; };
+		F3B9DFB72AAB5352004CEFA4 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		F3B9DFBA2AAB9D21004CEFA4 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		F3E10E5C2AA9C013007FC39A /* UIViewController+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Convenience.swift"; sourceTree = "<group>"; };
 		F3E10E5E2AA9C134007FC39A /* AppNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigator.swift; sourceTree = "<group>"; };
@@ -93,6 +99,23 @@
 				52169E2C49CDE9E5FC6DD7AD /* Pods_technical_Task.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F359D0832AAC4FC700BA427A /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				F3ADA5CF2AA99C0F00982D05 /* MainViewController.swift */,
+				F3B9DFB72AAB5352004CEFA4 /* MainViewModel.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		F359D0842AAC4FD300BA427A /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				F359D0852AAC4FEC00BA427A /* SettingsViewController.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		F3966F6A2AA9B825005EB395 /* Common */ = {
@@ -195,8 +218,8 @@
 		F3E10E892AA9DCC3007FC39A /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				F3ADA5CF2AA99C0F00982D05 /* ViewController.swift */,
-				F3B9DFB72AAB5352004CEFA4 /* MainViewModel.swift */,
+				F359D0832AAC4FC700BA427A /* Main */,
+				F359D0842AAC4FD300BA427A /* Settings */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -213,6 +236,8 @@
 				F3E10E672AA9C40A007FC39A /* Fonts.swift */,
 				F3E10E692AA9C44F007FC39A /* Images.swift */,
 				F3E10E6B2AA9C4FD007FC39A /* UIButton+Convenience.swift */,
+				F359D0812AAC4C2900BA427A /* UINavigationBarAppearance+Convenience.swift */,
+				F359D0872AAC5B2700BA427A /* SettingPreferenceManager.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -333,8 +358,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3ADA5D02AA99C0F00982D05 /* ViewController.swift in Sources */,
+				F3ADA5D02AA99C0F00982D05 /* MainViewController.swift in Sources */,
 				F3E10E612AA9C23E007FC39A /* Constants.swift in Sources */,
+				F359D0862AAC4FEC00BA427A /* SettingsViewController.swift in Sources */,
 				F3E10E682AA9C40A007FC39A /* Fonts.swift in Sources */,
 				F3E521D62AA9B8EE00799337 /* Double+Convenience.swift in Sources */,
 				F3B9DFBB2AAB9D21004CEFA4 /* Weather.swift in Sources */,
@@ -342,6 +368,8 @@
 				F3E10E5D2AA9C013007FC39A /* UIViewController+Convenience.swift in Sources */,
 				F3E10E632AA9C299007FC39A /* PreferenceManager.swift in Sources */,
 				F3E10E6A2AA9C44F007FC39A /* Images.swift in Sources */,
+				F359D0822AAC4C2900BA427A /* UINavigationBarAppearance+Convenience.swift in Sources */,
+				F359D0882AAC5B2700BA427A /* SettingPreferenceManager.swift in Sources */,
 				F3E10E5F2AA9C134007FC39A /* AppNavigator.swift in Sources */,
 				F3E10E6C2AA9C4FD007FC39A /* UIButton+Convenience.swift in Sources */,
 				F3B9DFB82AAB5352004CEFA4 /* MainViewModel.swift in Sources */,

@@ -24,7 +24,7 @@ class AppNavigator {
 
     func setupRootNavigationInWindow(_ window: UIWindow) {
         self.window = window
-        let navigationVC = AppNavigationController(rootViewController: ViewController())
+        let navigationVC = AppNavigationController(rootViewController: MainViewController())
         window.rootViewController = navigationVC
     }
 
