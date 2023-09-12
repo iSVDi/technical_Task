@@ -75,7 +75,7 @@ class MainViewController: UIViewController {
                 case .city, .weather:
                     self?.openChooseItem(.city)
                 case .coins:
-                    self?.openChooseItem(.coins)
+                    self?.openChooseItem(.coins(3))
                 }
             }.store(in: &cancellables)
             return sectionView

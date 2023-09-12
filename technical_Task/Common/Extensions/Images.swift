@@ -12,6 +12,8 @@ enum AppImage: String {
     case leftChevron = "chevron.left"
     case settings = "gearshape.fill"
     case lines = "line.3.horizontal"
+    case plus = "plus"
+    case checkmark = "checkmark"
     
     var uiImage: UIImage? {
         return UIImage(named: rawValue) ?? UIImage(systemName: rawValue)

@@ -10,6 +10,7 @@ import Foundation
 enum SettingPreferenceManagerKeys: String {
     case sectionsOrder
     case selectedCity
+    case selectedCoins
 }
 
 class SettingPreferenceManager: PreferenceManager<SettingPreferenceManagerKeys> {
@@ -33,6 +34,14 @@ class SettingPreferenceManager: PreferenceManager<SettingPreferenceManagerKeys> 
             return string(for: .selectedCity)
         } set {
             setString(newValue, for: .selectedCity)
+        }
+    }
+    
+    var coins: [String] {
+        get {
+            return stringArray(for: .selectedCoins)
+        } set {
+            setStringArray(newValue, for: .selectedCoins)
         }
     }
     

@@ -19,7 +19,6 @@ class MainViewModel {
         case changeOrder(titles: [String])
     }
     
-    private let model = MainModel()
     private let settingsManager = SettingPreferenceManager()
     private let output: PassthroughSubject<Output, Never> = .init()
     private var cancellables = Set<AnyCancellable>()

@@ -21,3 +21,11 @@ struct Coin: Codable {
         case priceChange = "price_change_24h"
     }
 }
+
+extension Coin: CommonItem {
+    
+    var title: String { return name }
+    var countryShortName: String? { return nil }
+    var urlImage: URL? { return imageUrl }
+    
+}

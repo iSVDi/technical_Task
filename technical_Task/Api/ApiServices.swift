@@ -1,5 +1,5 @@
 //
-//  MainModel.swift
+//  ApiServices.swift
 //  technical_Task
 //
 //  Created by Daniil on 08.09.2023.
@@ -8,7 +8,7 @@
 import Moya
 import Combine
 
-class MainModel {
+class ApiServices {
     
     private let provider = MoyaProvider<ApiRequestsTypes>()
     
