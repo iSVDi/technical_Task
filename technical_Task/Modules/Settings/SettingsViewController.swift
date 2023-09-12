@@ -7,6 +7,7 @@
 
 import UIKit
 import TinyConstraints
+import Combine
 
 class SettingsViewController: UIViewController {
     
@@ -14,9 +15,14 @@ class SettingsViewController: UIViewController {
     private let settings = SettingPreferenceManager()
     private lazy var sections = settings.sectionsOrder
     
+    private let output: PassthroughSubject<[String], Never> = .init()
     override func viewDidLoad() {
         super.viewDidLoad()
         commonInit()
+    }
+    
+    func transform() -> AnyPublisher<[String],Never> {
+        return output.eraseToAnyPublisher()
     }
     
     private func commonInit() {
@@ -50,6 +56,7 @@ class SettingsViewController: UIViewController {
     @objc
     private func rightBarButtonHandler() {
         settings.sectionsOrder = sections
+        output.send(sections)
         navigationController?.popViewController(animated: true)
     }
 
@@ -78,8 +85,12 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let fromId = sourceIndexPath.row
+        let item = sections[fromId]
+        sections.remove(at: fromId)
         let toId = destinationIndexPath.row
-        sections.swapAt(fromId, toId)
+        
+        sections.insert(item, at: toId)
+        
         let isEnabled = settings.sectionsOrder != sections
         navigationItem.rightBarButtonItem?.isEnabled = isEnabled
     }

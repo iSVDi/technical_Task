@@ -2,44 +2,38 @@
 //  MainViewModel.swift
 //  technical_Task
 //
-//  Created by Daniil on 08.09.2023.
+//  Created by Daniil on 11.09.2023.
 //
 
-import Moya
+import Foundation
+import UIKit
 import Combine
 
 class MainViewModel {
     
-    private let provider = MoyaProvider<ApiRequestsTypes>()
-    
-    func getCityCoordinates(_ city: String ) -> AnyPublisher<[Coordinates], Error> {
-        return arrayRequest(target: .loadCityCoordinates(city))
+    enum Input {
+        case viewDidLoad
+    }
+
+    enum Output {
+        case changeOrder(titles: [String])
     }
     
-    func getWeather(coordinates: Coordinates) -> AnyPublisher<Weather, Error> {
-        return provider.requestPublisher(.loadWeather(coordinates: coordinates))
-            .catch { error in
-                return Fail(error: error).eraseToAnyPublisher()
-            }.map({$0.data})
-            .decode(type: Weather.self, decoder: JSONDecoder())
-            .eraseToAnyPublisher()
-    }
+    private let model = MainModel()
+    private let settingsManager = SettingPreferenceManager()
+    private let output: PassthroughSubject<Output, Never> = .init()
+    private var cancellables = Set<AnyCancellable>()
     
-    func getCoins() -> AnyPublisher<[Coin], Error> {
-        return arrayRequest(target: .loadCoins)
+    func transform(input: AnyPublisher<Input, Never>) -> AnyPublisher<Output, Never> {
+        input.sink { [weak self] value in
+            guard let self = self else {
+                return
+            }
+            switch value {
+            case .viewDidLoad:
+                self.output.send(.changeOrder(titles: self.settingsManager.sectionsOrder))
+            }
+        }.store(in: &cancellables)
+        return output.eraseToAnyPublisher()
     }
-    
-    func getSelectedCoins(_ coins: String) -> AnyPublisher<[Coin], Error> {
-        return arrayRequest(target: .loadSelectedCoins(coins))
-    }
-    
-    private func arrayRequest<T: Decodable>(target: ApiRequestsTypes) -> AnyPublisher<[T], Error> {
-        return provider.requestPublisher(target)
-            .catch { error in
-                return Fail(error: error).eraseToAnyPublisher()
-            }.map({$0.data})
-            .decode(type: [T].self, decoder: JSONDecoder())
-            .eraseToAnyPublisher()
-    }
-    
 }
