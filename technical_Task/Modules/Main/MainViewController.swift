@@ -15,7 +15,7 @@ class MainViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     private let input: PassthroughSubject<MainViewModel.Input, Never> = .init()
     
-    private let sectionHeight: CGFloat = 300
+    private let sectionHeight: CGFloat = 250
     private let scrollView = ViewsFactory.defaultScrollView()
     
     override func viewDidLoad() {
@@ -24,7 +24,7 @@ class MainViewController: UIViewController {
     }
     
     private func commonInit() {
-        applyDefaultSettings()
+        applyDefaultSettings(withBackgroundColor: .appSystemGray3)
         setupNavigationBar()
         setupLayout()
         bind()
@@ -66,28 +66,32 @@ class MainViewController: UIViewController {
         }
         
         let views = titles.map { title in
-            let label = ViewsFactory.defaultLabel()
-            label.text = title
-            label.textAlignment = .left
+            let sectionView = SectionView()
+            sectionView.setData(title: title)
             
-            let view = UIView()
-            view.backgroundColor = .red
-            
-            let stack = ViewsFactory.defaultStackView(axis: .vertical, spacing: 5, alignment: .fill,  margins: .top(10))
-            [label, view].forEach { view in
-                stack.addArrangedSubview(view)
-                view.horizontalToSuperview(insets: .horizontal(16))
-            }
-            view.bottomToSuperview()
-            stack.height(sectionHeight)
-            return stack
+            let output = sectionView.bind()
+            output.sink { [weak self] sectionName in
+                switch sectionName {
+                case .city, .weather:
+                    self?.openChooseItem(.city)
+                case .coins:
+                    self?.openChooseItem(.coins)
+                }
+            }.store(in: &cancellables)
+            return sectionView
         }
         
+        scrollView.subviews.forEach { $0.removeFromSuperview() }
         scrollView.stack(views, width: Constants.screenWidth)
         views.forEach { view in
             view.horizontalToSuperview()
+            view.height(sectionHeight)
         }
-        
+    }
+    
+    private func openChooseItem(_ mode: ChooseItemMode) {
+        let controller = ChooseItemViewController.prepare(mode)
+        pushViewController(controller)
     }
     
     // MARK: - Handlers
@@ -98,7 +102,6 @@ class MainViewController: UIViewController {
         settings.transform().sink { [weak self] titles in
             self?.updateSections(titles: titles)
         }.store(in: &cancellables)
-            
         pushViewController(settings)
     }
     

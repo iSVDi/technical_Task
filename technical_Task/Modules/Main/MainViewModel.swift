@@ -36,4 +36,5 @@ class MainViewModel {
         }.store(in: &cancellables)
         return output.eraseToAnyPublisher()
     }
+    
 }

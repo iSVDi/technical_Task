@@ -26,5 +26,6 @@ extension UIColor {
 
     static let appBackground = UIColor(named: "appBackground")! // #F2F2F7
     static let appBar = UIColor(named: "appBar")! // #F9F9F9 opacity 94%
+    static let appSectionBackground = UIColor(named: "appSectionBackground")
     
 }

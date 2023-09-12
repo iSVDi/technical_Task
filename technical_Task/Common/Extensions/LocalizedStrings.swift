@@ -20,7 +20,12 @@ extension String {
     enum Alerts: String {
         case okTitle
         case errorTitle
-        
+    }
+    
+    enum SectionsName: String, CaseIterable {
+        case city
+        case weather
+        case coins
     }
     
 }

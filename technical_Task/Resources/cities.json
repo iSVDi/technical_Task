@@ -1,0 +1,10 @@
+[{"name": "Москва",   "id": "moscow", "country": "RU"},
+    {"name": "Санкт-Петербург", "id": "piter", "country": "RU"},
+    {"name": "Ростов-на-Дону", "id": "rostov", "country": "RU"},
+    {"name": "Краснодар", "id": "krasnodar", "country": "RU"},
+    {"name": "Берлин", "id": "berlin", "country": "DE"},
+    {"name": "Лондон", "id": "london", "country": "GB"},
+    {"name": "Париж", "id": "paris", "country": "FR"},
+    {"name": "Амстердам", "id": "amsterdam", "country": "NL"},
+    {"name": "Красноярск", "id": "krasnoyarsk", "country": "RU"}
+]

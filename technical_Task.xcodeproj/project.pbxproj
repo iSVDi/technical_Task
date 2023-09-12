@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		AEBE5AAEAE507F036714415D /* Pods_technical_Task.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52169E2C49CDE9E5FC6DD7AD /* Pods_technical_Task.framework */; };
 		F30038092AAF8BD80087A8C2 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30038082AAF8BD80087A8C2 /* MainViewModel.swift */; };
+		F31EB9572AB02846009DCEF5 /* cities.json in Resources */ = {isa = PBXBuildFile; fileRef = F31EB9562AB02846009DCEF5 /* cities.json */; };
+		F31EB9592AB028C3009DCEF5 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31EB9582AB028C3009DCEF5 /* City.swift */; };
+		F31EB95C2AB032DC009DCEF5 /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31EB95B2AB032DC009DCEF5 /* SectionView.swift */; };
 		F34678262AAC3A1D00C12A50 /* Coin.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34678252AAC3A1D00C12A50 /* Coin.swift */; };
 		F359D0822AAC4C2900BA427A /* UINavigationBarAppearance+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = F359D0812AAC4C2900BA427A /* UINavigationBarAppearance+Convenience.swift */; };
 		F359D0862AAC4FEC00BA427A /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F359D0852AAC4FEC00BA427A /* SettingsViewController.swift */; };
@@ -23,6 +26,7 @@
 		F3B9DFB62AAB4E63004CEFA4 /* ApiRequestsTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B9DFB52AAB4E63004CEFA4 /* ApiRequestsTypes.swift */; };
 		F3B9DFB82AAB5352004CEFA4 /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B9DFB72AAB5352004CEFA4 /* MainModel.swift */; };
 		F3B9DFBB2AAB9D21004CEFA4 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B9DFBA2AAB9D21004CEFA4 /* Weather.swift */; };
+		F3BD5D862AB0811F0032C281 /* ChooseItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD5D852AB0811F0032C281 /* ChooseItemViewModel.swift */; };
 		F3E10E5D2AA9C013007FC39A /* UIViewController+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E10E5C2AA9C013007FC39A /* UIViewController+Convenience.swift */; };
 		F3E10E5F2AA9C134007FC39A /* AppNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E10E5E2AA9C134007FC39A /* AppNavigator.swift */; };
 		F3E10E612AA9C23E007FC39A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E10E602AA9C23E007FC39A /* Constants.swift */; };
@@ -44,6 +48,9 @@
 		52169E2C49CDE9E5FC6DD7AD /* Pods_technical_Task.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_technical_Task.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7308F61CD145B63AC183C78 /* Pods-technical_Task.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-technical_Task.debug.xcconfig"; path = "Target Support Files/Pods-technical_Task/Pods-technical_Task.debug.xcconfig"; sourceTree = "<group>"; };
 		F30038082AAF8BD80087A8C2 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		F31EB9562AB02846009DCEF5 /* cities.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cities.json; sourceTree = "<group>"; };
+		F31EB9582AB028C3009DCEF5 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
+		F31EB95B2AB032DC009DCEF5 /* SectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionView.swift; sourceTree = "<group>"; };
 		F34678252AAC3A1D00C12A50 /* Coin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coin.swift; sourceTree = "<group>"; };
 		F359D0812AAC4C2900BA427A /* UINavigationBarAppearance+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBarAppearance+Convenience.swift"; sourceTree = "<group>"; };
 		F359D0852AAC4FEC00BA427A /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -60,6 +67,7 @@
 		F3B9DFB52AAB4E63004CEFA4 /* ApiRequestsTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequestsTypes.swift; sourceTree = "<group>"; };
 		F3B9DFB72AAB5352004CEFA4 /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		F3B9DFBA2AAB9D21004CEFA4 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
+		F3BD5D852AB0811F0032C281 /* ChooseItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseItemViewModel.swift; sourceTree = "<group>"; };
 		F3E10E5C2AA9C013007FC39A /* UIViewController+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Convenience.swift"; sourceTree = "<group>"; };
 		F3E10E5E2AA9C134007FC39A /* AppNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigator.swift; sourceTree = "<group>"; };
 		F3E10E602AA9C23E007FC39A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -105,9 +113,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F31EB95A2AB032C7009DCEF5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F31EB95B2AB032DC009DCEF5 /* SectionView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		F359D0832AAC4FC700BA427A /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				F31EB95A2AB032C7009DCEF5 /* Views */,
 				F3ADA5CF2AA99C0F00982D05 /* MainViewController.swift */,
 				F30038082AAF8BD80087A8C2 /* MainViewModel.swift */,
 				F3B9DFB72AAB5352004CEFA4 /* MainModel.swift */,
@@ -130,6 +147,7 @@
 				F3E10E5E2AA9C134007FC39A /* AppNavigator.swift */,
 				F3E10E602AA9C23E007FC39A /* Constants.swift */,
 				F3E10E622AA9C299007FC39A /* PreferenceManager.swift */,
+				F359D0872AAC5B2700BA427A /* SettingPreferenceManager.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -179,8 +197,18 @@
 			children = (
 				F3B9DFBA2AAB9D21004CEFA4 /* Weather.swift */,
 				F34678252AAC3A1D00C12A50 /* Coin.swift */,
+				F31EB9582AB028C3009DCEF5 /* City.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		F3BD5D872AB081340032C281 /* ChooseItem */ = {
+			isa = PBXGroup;
+			children = (
+				F363C2442AAF882F00F9130E /* ChooseItemViewController.swift */,
+				F3BD5D852AB0811F0032C281 /* ChooseItemViewModel.swift */,
+			);
+			path = ChooseItem;
 			sourceTree = "<group>";
 		};
 		F3E10E642AA9C313007FC39A /* CustomViews */ = {
@@ -202,6 +230,7 @@
 		F3E10E6E2AA9C60E007FC39A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F31EB9562AB02846009DCEF5 /* cities.json */,
 				F3ADA5D42AA99C1000982D05 /* Assets.xcassets */,
 				F3ADA5D92AA99C1000982D05 /* Info.plist */,
 				F3E10E742AA9C88C007FC39A /* Fonts */,
@@ -225,7 +254,7 @@
 			children = (
 				F359D0832AAC4FC700BA427A /* Main */,
 				F359D0842AAC4FD300BA427A /* Settings */,
-				F363C2442AAF882F00F9130E /* ChooseItemViewController.swift */,
+				F3BD5D872AB081340032C281 /* ChooseItem */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -243,7 +272,6 @@
 				F3E10E692AA9C44F007FC39A /* Images.swift */,
 				F3E10E6B2AA9C4FD007FC39A /* UIButton+Convenience.swift */,
 				F359D0812AAC4C2900BA427A /* UINavigationBarAppearance+Convenience.swift */,
-				F359D0872AAC5B2700BA427A /* SettingPreferenceManager.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -307,6 +335,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F31EB9572AB02846009DCEF5 /* cities.json in Resources */,
 				F3E10E802AA9C88D007FC39A /* SFProText-Semibold.ttf in Resources */,
 				F3ADA5D52AA99C1000982D05 /* Assets.xcassets in Resources */,
 				F3E10E812AA9C88D007FC39A /* SFProText-Regular.ttf in Resources */,
@@ -370,7 +399,9 @@
 				F3E10E682AA9C40A007FC39A /* Fonts.swift in Sources */,
 				F3E521D62AA9B8EE00799337 /* Double+Convenience.swift in Sources */,
 				F3B9DFBB2AAB9D21004CEFA4 /* Weather.swift in Sources */,
+				F31EB9592AB028C3009DCEF5 /* City.swift in Sources */,
 				F363C2452AAF882F00F9130E /* ChooseItemViewController.swift in Sources */,
+				F31EB95C2AB032DC009DCEF5 /* SectionView.swift in Sources */,
 				F3E10E662AA9C326007FC39A /* ViewsFactory.swift in Sources */,
 				F3E10E5D2AA9C013007FC39A /* UIViewController+Convenience.swift in Sources */,
 				F3E10E632AA9C299007FC39A /* PreferenceManager.swift in Sources */,
@@ -384,6 +415,7 @@
 				F370BE112AA9BC09006F0461 /* UIView+Convenience.swift in Sources */,
 				F3E521D42AA9B86D00799337 /* Colors.swift in Sources */,
 				F3ADA5CC2AA99C0F00982D05 /* AppDelegate.swift in Sources */,
+				F3BD5D862AB0811F0032C281 /* ChooseItemViewModel.swift in Sources */,
 				F3B9DFB62AAB4E63004CEFA4 /* ApiRequestsTypes.swift in Sources */,
 				F34678262AAC3A1D00C12A50 /* Coin.swift in Sources */,
 				F370BE132AA9BC5C006F0461 /* UIViewController+Alerts.swift in Sources */,

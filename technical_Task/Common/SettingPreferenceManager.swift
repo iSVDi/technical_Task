@@ -9,13 +9,15 @@ import Foundation
 
 enum SettingPreferenceManagerKeys: String {
     case sectionsOrder
+    case selectedCity
 }
 
 class SettingPreferenceManager: PreferenceManager<SettingPreferenceManagerKeys> {
     
     override init() {
         super.init()
-        register([SettingPreferenceManagerKeys.sectionsOrder.rawValue : ["Город", "Погода", "Курс криптовалют"]])
+        let sections = String.SectionsName.allCases.map { ^$0 }
+        register([SettingPreferenceManagerKeys.sectionsOrder.rawValue : sections])
     }
     
     var sectionsOrder: [String] {
@@ -25,4 +27,13 @@ class SettingPreferenceManager: PreferenceManager<SettingPreferenceManagerKeys> 
             setStringArray(newValue, for: .sectionsOrder)
         }
     }
+    
+    var city: String {
+        get {
+            return string(for: .selectedCity)
+        } set {
+            setString(newValue, for: .selectedCity)
+        }
+    }
+    
 }

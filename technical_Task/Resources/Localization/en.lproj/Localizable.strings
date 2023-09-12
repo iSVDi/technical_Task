@@ -12,3 +12,8 @@
 //Alerts
 "OkTitle" = "OK";
 "ErrorTitle" = "Error";
+
+//SectionsName
+"City" = "Город";
+"Weather" = "Погода";
+"Coins" = "Курс криптовалют";
