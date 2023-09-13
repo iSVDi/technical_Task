@@ -15,6 +15,7 @@ class SectionView: UIView {
     private let label = ViewsFactory.defaultLabel()
     private let subview = UIView()
     private let selectButton = ViewsFactory.defaultButton()
+    private var titleKey: String.SectionsName?
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -29,15 +30,19 @@ class SectionView: UIView {
         return output.eraseToAnyPublisher()
     }
     
-    func setData(title: String, view: UIView? = nil) {
-        label.text = title
+    func setData(titleKey: String.SectionsName, view: UIView? = nil) {
+        label.text = ^titleKey
+        self.titleKey = titleKey
         
-        setupSelectButton(view == nil)
+        
         guard let view = view else {
+            setupSelectButton(view == nil)
             return
         }
         subview.addSubview(view)
+        view.layer.cornerRadius = 12
         view.edgesToSuperview()
+        setupSelectButton(false)
     }
     
     
@@ -77,10 +82,11 @@ class SectionView: UIView {
             selectButton.backgroundColor = .appSystemBlue
             wrappedButton.backgroundColor = .appSystemBlue
         } else {
-            selectButton.setImage(AppImage.settings.uiImageWith(tint: .appWhite), for: .normal)
+            selectButton.setImage(AppImage.settings.uiImageWith(tint: .appSystemBlue), for: .normal)
             subview.addSubview(selectButton)
             let offset: CGFloat = 10
-            selectButton.rightToSuperview(offset: offset)
+            selectButton.backgroundColor = .appClear
+            selectButton.rightToSuperview(offset: -offset)
             selectButton.topToSuperview(offset: offset)
         }
     }
@@ -89,20 +95,10 @@ class SectionView: UIView {
     
     @objc
     private func selectHandler() {
-        guard let title = label.text else {
+        guard let titleKey = titleKey else {
             return
         }
-        
-        switch title {
-        case ^String.SectionsName.city:
-            output.send(.city)
-        case ^String.SectionsName.weather:
-            output.send(.weather)
-        case ^String.SectionsName.coins:
-            output.send(.coins)
-        default:
-            break
-        }
+        output.send(titleKey)
     }
     
 }

@@ -28,7 +28,10 @@ class MainViewController: UIViewController {
         setupNavigationBar()
         setupLayout()
         bind()
-        input.send(.viewDidLoad)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        input.send(.viewWillApper)
     }
     
     private func bind() {
@@ -67,7 +70,14 @@ class MainViewController: UIViewController {
         
         let views = titles.map { title in
             let sectionView = SectionView()
-            sectionView.setData(title: title)
+            guard let titleKey = String.SectionsName.init(rawValue: title) else {
+                return UIView()
+            }
+            if let view = viewModel.sectionViews[title] {
+                sectionView.setData(titleKey: titleKey, view: view)
+            } else {
+                sectionView.setData(titleKey: titleKey)
+            }
             
             let output = sectionView.bind()
             output.sink { [weak self] sectionName in

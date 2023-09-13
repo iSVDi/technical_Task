@@ -68,8 +68,8 @@ class ChooseItemViewController: UIViewController {
             case let .coins(coins):
                 self?.items = coins
                 self?.tableView.reloadData()
-            case .reloadTableView:
-                self?.tableView.reloadData()
+            case .selectedItemsUpdate:
+                self?.reloadSelectedItems()
             }
         }.store(in: &cancellables)
     }
@@ -82,7 +82,7 @@ class ChooseItemViewController: UIViewController {
     }
     
     private func setupLayout() {
-        let stackView = ViewsFactory.defaultStackView(axis: .vertical)
+        let stackView = ViewsFactory.defaultStackView(axis: .vertical, spacing: 5)
         [selectedItemsLabel, tableView].forEach { view in
             stackView.addArrangedSubview(view)
             view.horizontalToSuperview()
@@ -95,15 +95,21 @@ class ChooseItemViewController: UIViewController {
     private func setupViews() {
         // TODO: localize
         navigationItem.title = mode == .city ? "Выбрать город" : "Выбрать криптовалюты"
-        //? "Выбрать город" : "Выбрать криптовалюты"
+        selectedItemsLabel.text = viewModel.selectedLabel
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ChooseItemCell.self, forCellReuseIdentifier: cellId)
     }
     
+    private func reloadSelectedItems() {
+        selectedItemsLabel.text = viewModel.selectedLabel
+        tableView.reloadData()
+    }
+    
 }
 
 extension ChooseItemViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }

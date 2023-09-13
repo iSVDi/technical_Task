@@ -17,7 +17,7 @@ class SettingPreferenceManager: PreferenceManager<SettingPreferenceManagerKeys> 
     
     override init() {
         super.init()
-        let sections = String.SectionsName.allCases.map { ^$0 }
+        let sections = String.SectionsName.allCases.map { $0.rawValue }
         register([SettingPreferenceManagerKeys.sectionsOrder.rawValue : sections])
     }
     

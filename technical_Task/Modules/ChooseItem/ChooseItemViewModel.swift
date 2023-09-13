@@ -19,7 +19,7 @@ class ChooseItemViewModel {
     enum Output {
         case cities(_ cities: [City])
         case coins(_ coins: [Coin])
-        case reloadTableView
+        case selectedItemsUpdate
     }
     
     private let mode: ChooseItemMode
@@ -28,12 +28,13 @@ class ChooseItemViewModel {
     private let output: PassthroughSubject<Output, Never> = .init()
     private var cancellables = Set<AnyCancellable>()
     
-    var city: String {
-        return settings.city
-    }
-    
-    var coins: [String] {
-        return settings.coins
+    var selectedLabel: String {
+        switch mode {
+        case .city:
+            return settings.city
+        case .coins:
+            return settings.coins.joined(separator: " ")
+        }
     }
     
     init(mode: ChooseItemMode) {
@@ -77,7 +78,7 @@ class ChooseItemViewModel {
             coins.append(item.title)
             settings.coins = coins
         }
-        output.send(.reloadTableView)
+        output.send(.selectedItemsUpdate)
     }
     
     private func getCities() -> [City] {
