@@ -20,6 +20,7 @@
 		F370BE112AA9BC09006F0461 /* UIView+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = F370BE102AA9BC09006F0461 /* UIView+Convenience.swift */; };
 		F370BE132AA9BC5C006F0461 /* UIViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F370BE122AA9BC5C006F0461 /* UIViewController+Alerts.swift */; };
 		F370BE152AA9BCB7006F0461 /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F370BE142AA9BCB7006F0461 /* LocalizedStrings.swift */; };
+		F3A5CA422AB203D900ADC362 /* CoinsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A5CA412AB203D900ADC362 /* CoinsView.swift */; };
 		F3ADA5CC2AA99C0F00982D05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3ADA5CB2AA99C0F00982D05 /* AppDelegate.swift */; };
 		F3ADA5D02AA99C0F00982D05 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3ADA5CF2AA99C0F00982D05 /* MainViewController.swift */; };
 		F3ADA5D52AA99C1000982D05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3ADA5D42AA99C1000982D05 /* Assets.xcassets */; };
@@ -61,6 +62,7 @@
 		F370BE102AA9BC09006F0461 /* UIView+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Convenience.swift"; sourceTree = "<group>"; };
 		F370BE122AA9BC5C006F0461 /* UIViewController+Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alerts.swift"; sourceTree = "<group>"; };
 		F370BE142AA9BCB7006F0461 /* LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedStrings.swift; sourceTree = "<group>"; };
+		F3A5CA412AB203D900ADC362 /* CoinsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsView.swift; sourceTree = "<group>"; };
 		F3ADA5C82AA99C0F00982D05 /* technical_Task.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = technical_Task.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3ADA5CB2AA99C0F00982D05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3ADA5CF2AA99C0F00982D05 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 			children = (
 				F31EB95B2AB032DC009DCEF5 /* SectionView.swift */,
 				F3B3BE292AB180A600B63159 /* WeatherView.swift */,
+				F3A5CA412AB203D900ADC362 /* CoinsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -424,6 +427,7 @@
 				F359D0882AAC5B2700BA427A /* SettingPreferenceManager.swift in Sources */,
 				F3E10E5F2AA9C134007FC39A /* AppNavigator.swift in Sources */,
 				F3E10E6C2AA9C4FD007FC39A /* UIButton+Convenience.swift in Sources */,
+				F3A5CA422AB203D900ADC362 /* CoinsView.swift in Sources */,
 				F3B9DFB82AAB5352004CEFA4 /* ApiServices.swift in Sources */,
 				F3B3BE2A2AB180A600B63159 /* WeatherView.swift in Sources */,
 				F370BE152AA9BCB7006F0461 /* LocalizedStrings.swift in Sources */,

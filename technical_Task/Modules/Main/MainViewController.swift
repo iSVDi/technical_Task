@@ -15,7 +15,7 @@ class MainViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     private let input: PassthroughSubject<MainViewModel.Input, Never> = .init()
     
-    private let sectionHeight: CGFloat = Constants.screenHeight * 0.235
+    private let sectionHeight: CGFloat = Constants.screenHeight * 0.35
     private let scrollView = ViewsFactory.defaultScrollView()
     
     override func viewDidLoad() {

@@ -62,7 +62,7 @@ class ChooseItemViewModel {
         case .city:
             return settings.city == item.title
         case .coins(_):
-            return settings.coins.contains(item.title)
+            return settings.coins.contains(item.title.lowercased())
         }
     }
     
@@ -72,10 +72,15 @@ class ChooseItemViewModel {
             settings.city = item.title
         case let .coins(count):
             var coins = settings.coins
+            
+            if coins.contains(item.title.lowercased()) {
+                return
+            }
+            
             if coins.count == count {
                 coins.removeFirst()
             }
-            coins.append(item.title)
+            coins.append(item.title.lowercased())
             settings.coins = coins
         }
         output.send(.selectedItemsUpdate)

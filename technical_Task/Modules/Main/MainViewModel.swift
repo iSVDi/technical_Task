@@ -23,9 +23,7 @@ class MainViewModel {
     private let settingsManager = SettingPreferenceManager()
     private let output: PassthroughSubject<Output, Never> = .init()
     private var cancellables = Set<AnyCancellable>()
-    private(set) var sectionViews: [String : UIView?] = [
-        String.SectionsName.city.rawValue : MKMapView(), String.SectionsName.weather.rawValue : UIView(), String.SectionsName.coins.rawValue : UIView()
-    ]
+    private(set) var sectionViews: [String : UIView?] = [:]
     private let apiServices = ApiServices()
     
     func transform(input: AnyPublisher<Input, Never>) -> AnyPublisher<Output, Never> {
@@ -37,6 +35,7 @@ class MainViewModel {
             case .viewWillApper:
                 self.prepareMapView()
                 self.prepareWeatherView()
+                self.prepareCoinsView()
                 self.output.send(.changeOrder(titles: self.settingsManager.sectionsOrder))
                 
             }
@@ -111,6 +110,40 @@ class MainViewModel {
             let weatherView = WeatherView()
             weatherView.setData(weather: weather)
             self.sectionViews[String.SectionsName.weather.rawValue] = weatherView
+            self.output.send(.changeOrder(titles: self.settingsManager.sectionsOrder))
+        }.store(in: &cancellables)
+
+    }
+    
+    private func prepareCoinsView() {
+        
+        //TODO: uncomment back. Commented because of api limits
+//        guard !settingsManager.coins.isEmpty else {
+//            sectionViews[String.SectionsName.coins.rawValue] = nil
+//            return
+//        }
+        
+        let coinsTitle = settingsManager.coins.joined(separator: ", ")
+        apiServices.getSelectedCoins(coinsTitle).sink { completion in
+            guard case let .failure(error) = completion else {
+                return
+            }
+            print(error.localizedDescription)
+        } receiveValue: { [weak self] coins in
+            guard let self = self else {
+                return
+            }
+            let coinsView = CoinsView()
+            let range = 0..<3
+            let hardCoins = range.map { _ in
+                return Coin(id: "asd",
+                     name: "Bitcoin",
+                     imageUrl: URL(string: "https://openweathermap.org/img/wn/01d.png")!,
+                     price: 3000.0,
+                     priceChange: 23)
+            }
+            coinsView.setData(hardCoins)
+            self.sectionViews[String.SectionsName.coins.rawValue] = coinsView
             self.output.send(.changeOrder(titles: self.settingsManager.sectionsOrder))
         }.store(in: &cancellables)
 
