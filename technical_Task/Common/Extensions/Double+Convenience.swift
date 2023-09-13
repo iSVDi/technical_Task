@@ -9,7 +9,7 @@ import Foundation
 
 extension Double {
 
-    func toString(format: String = "%02d") -> String {
+    func toString(format: String = "%2d") -> String {
         return String(format: format, Int(self))
     }
 

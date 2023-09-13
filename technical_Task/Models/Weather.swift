@@ -46,7 +46,7 @@ struct WeatherDetails: Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.description = try container.decode(String.self, forKey: .description)
         let iconName = try container.decode(String.self, forKey: .icon)
-        self.icon = "http://openweathermap.org/img/wn/\(iconName).png"
+        self.icon = "https://openweathermap.org/img/wn/\(iconName).png"
     }
 }
 

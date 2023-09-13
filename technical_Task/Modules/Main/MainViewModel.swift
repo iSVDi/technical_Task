@@ -36,6 +36,7 @@ class MainViewModel {
             switch value {
             case .viewWillApper:
                 self.prepareMapView()
+                self.prepareWeatherView()
                 self.output.send(.changeOrder(titles: self.settingsManager.sectionsOrder))
                 
             }
@@ -76,6 +77,43 @@ class MainViewModel {
             self.sectionViews[String.SectionsName.city.rawValue] = map
             self.output.send(.changeOrder(titles: self.settingsManager.sectionsOrder))
         }.store(in: &cancellables)
+    }
+    
+    private func prepareWeatherView() {
+        guard !settingsManager.city.isEmpty else {
+            sectionViews[String.SectionsName.weather.rawValue] = nil
+            return
+        }
+        
+        apiServices.getCityCoordinates(settingsManager.city).sink { completion in
+            guard case let .failure(error) = completion else {
+                return
+            }
+            print(error.localizedDescription)
+        } receiveValue: { [weak self] coordinatesAray in
+            guard let coordinates = coordinatesAray.first else {
+                return
+            }
+            self?.handleWeatherCoordinates(coordinates)
+        }.store(in: &cancellables)
+    }
+    
+    private func handleWeatherCoordinates(_ coordinates: Coordinates) {
+        apiServices.getWeather(coordinates: coordinates).sink { completion in
+            guard case let .failure(error) = completion else {
+                return
+            }
+            print(error.localizedDescription)
+        } receiveValue: { [weak self] weather in
+            guard let self = self else {
+                return
+            }
+            let weatherView = WeatherView()
+            weatherView.setData(weather: weather)
+            self.sectionViews[String.SectionsName.weather.rawValue] = weatherView
+            self.output.send(.changeOrder(titles: self.settingsManager.sectionsOrder))
+        }.store(in: &cancellables)
+
     }
     
 }

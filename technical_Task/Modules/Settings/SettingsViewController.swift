@@ -72,7 +72,13 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = sections[indexPath.row]
+        let title: String = {
+            guard let key = String.SectionsName.init(rawValue: sections[indexPath.row]) else {
+                return ""
+            }
+            return ^key
+        }()
+        cell.textLabel?.text = title
         cell.backgroundColor = .appSystemGray5
         let imageView = ViewsFactory.defaultImageView(contentMode: .scaleAspectFit, image: AppImage.lines.uiImageWith(tint: .appSystemGray))
         cell.accessoryView = imageView

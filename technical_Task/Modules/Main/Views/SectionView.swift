@@ -11,7 +11,7 @@ import TinyConstraints
 
 class SectionView: UIView {
     private let output: PassthroughSubject <String.SectionsName, Never> = .init()
-    private let stackView = ViewsFactory.defaultStackView(axis: .vertical, spacing: 5, alignment: .center,  margins: .top(10))
+    private let stackView = ViewsFactory.defaultStackView(axis: .vertical, spacing: 5, alignment: .fill,  margins: .top(10))
     private let label = ViewsFactory.defaultLabel()
     private let subview = UIView()
     private let selectButton = ViewsFactory.defaultButton()
@@ -58,10 +58,9 @@ class SectionView: UIView {
             stackView.addArrangedSubview(view)
             view.horizontalToSuperview(insets: .horizontal(16))
         }
+        subview.heightToSuperview(multiplier: 0.8)
         addSubview(stackView)
         stackView.edgesToSuperview()
-        subview.bottomToSuperview()
-        
     }
     
     private func setupViews() {
