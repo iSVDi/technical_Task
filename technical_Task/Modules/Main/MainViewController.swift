@@ -78,10 +78,6 @@ class MainViewController: UIViewController {
     }
     
     private func updateSections(titles: [String]) {
-        scrollView.subviews.forEach { view in
-            view.removeFromSuperview()
-        }
-        
         let views = titles.map { title in
             let sectionView = SectionView()
             guard let titleKey = String.SectionsName.init(rawValue: title) else {
@@ -89,7 +85,16 @@ class MainViewController: UIViewController {
             }
             let view = viewModel.sectionViews[titleKey]
             sectionView.setData(titleKey: titleKey, view: view)
-            
+            switch titleKey {
+            case .city:
+                sectionView.turnLoadingState(viewModel.settingsManager.city != nil)
+            case .weather:
+                sectionView.turnLoadingState(viewModel.settingsManager.city != nil)
+            case .coins:
+                if let coins = viewModel.settingsManager.coins, !coins.isEmpty  {
+                    sectionView.turnLoadingState(true)
+                }
+            }
             
             let output = sectionView.bind()
             output.sink { [weak self] sectionName in

@@ -22,7 +22,7 @@ class MainViewModel {
         case coinsUpdated(_ key: String.SectionsName)
     }
     
-    private let settingsManager = SettingPreferenceManager()
+    let settingsManager = SettingPreferenceManager()
     private let output: PassthroughSubject<Output, Never> = .init()
     private var cancellables = Set<AnyCancellable>()
     private(set) var sectionViews: [String.SectionsName : UIView] = [:]
@@ -54,12 +54,12 @@ class MainViewModel {
             if settingsManager.city != nil {
                 res.append(contentsOf: [.city, .weather])
             }
-            if settingsManager.coins != nil {
+            if let coins = settingsManager.coins, !coins.isEmpty {
                 res.append(.coins)
             }
             return res
         }()
-        
+
         keys.forEach { section in
             let view = SectionView()
             sectionViews[section] = view
@@ -68,6 +68,7 @@ class MainViewModel {
     
     private func prepareMapView() {
         guard let city = settingsManager.city else {
+            output.send(.cityUpdated(.city))
             return
         }
         let map = sectionViews[String.SectionsName.city] as? MKMapView ?? MKMapView()
@@ -102,6 +103,7 @@ class MainViewModel {
     
     private func prepareWeatherView() {
         guard let city = settingsManager.city else {
+            output.send(.cityUpdated(.weather))
             return
         }
         
@@ -137,6 +139,7 @@ class MainViewModel {
     
     private func prepareCoinsView() {
         guard let coins = settingsManager.coins, !coins.isEmpty else {
+            output.send(.coinsUpdated(.coins))
             return
         }
         
