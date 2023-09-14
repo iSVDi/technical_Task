@@ -13,7 +13,7 @@ class SectionView: UIView {
     private let output: PassthroughSubject <String.SectionsName, Never> = .init()
     private let stackView = ViewsFactory.defaultStackView(axis: .vertical, spacing: 5, alignment: .fill,  margins: .top(10))
     private let label = ViewsFactory.defaultLabel()
-    private let subview = UIView()
+    private let sectionSubview = UIView()
     private let selectButton = ViewsFactory.defaultButton()
     private let loadingIndicator = UIActivityIndicatorView()
     private(set) var titleKey: String.SectionsName?
@@ -42,20 +42,20 @@ class SectionView: UIView {
         selectButton.superview?.isHidden = loadingIndicator.isAnimating
     }
     
-    func setData(titleKey: String.SectionsName, view: UIView?) {
+    func setData(titleKey: String.SectionsName, subview: UIView?) {
         label.text = ^titleKey
         self.titleKey = titleKey
         
-        guard let view = view else {
-            setupSelectButton(view == nil)
+        guard let subview = subview else {
+            setupSelectButton(true)
             return
         }
-        subview.subviews.forEach {
+        sectionSubview.subviews.forEach {
             $0.removeFromSuperview()
         }
-        subview.addSubview(view)
-        view.layer.cornerRadius = 12
-        view.edgesToSuperview()
+        sectionSubview.addSubview(subview)
+        subview.layer.cornerRadius = 12
+        subview.edgesToSuperview()
         setupSelectButton(false)
     }
     
@@ -68,11 +68,11 @@ class SectionView: UIView {
     }
     
     private func setupLayout() {
-        [label, subview].forEach { view in
+        [label, sectionSubview].forEach { view in
             stackView.addArrangedSubview(view)
             view.horizontalToSuperview(insets: .horizontal(16))
         }
-        subview.heightToSuperview(multiplier: 0.8)
+        sectionSubview.heightToSuperview(multiplier: 0.8)
         addSubview(stackView)
         stackView.edgesToSuperview()
         addSubview(loadingIndicator)
@@ -81,8 +81,8 @@ class SectionView: UIView {
     
     private func setupViews() {
         label.textAlignment = .left
-        subview.backgroundColor = .appSectionBackground
-        subview.layer.cornerRadius = 12
+        sectionSubview.backgroundColor = .appSectionBackground
+        sectionSubview.layer.cornerRadius = 12
         selectButton.addTarget(self, action: #selector(selectHandler), for: .touchUpInside)
     }
     
@@ -90,7 +90,7 @@ class SectionView: UIView {
         // TODO: localize
         if firstSelect {
             let wrappedButton = selectButton.wrap()
-            subview.addSubview(wrappedButton)
+            sectionSubview.addSubview(wrappedButton)
             wrappedButton.layer.cornerRadius = 12
             wrappedButton.centerInSuperview()
             selectButton.setTitle("Выбрать", for: .normal)
@@ -98,7 +98,7 @@ class SectionView: UIView {
             wrappedButton.backgroundColor = .appSystemBlue
         } else {
             selectButton.setImage(AppImage.settings.uiImageWith(tint: .appSystemBlue), for: .normal)
-            subview.addSubview(selectButton)
+            sectionSubview.addSubview(selectButton)
             let offset: CGFloat = 10
             selectButton.setTitle("", for: .normal)
             selectButton.backgroundColor = .appClear

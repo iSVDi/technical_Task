@@ -13,6 +13,7 @@
 		F31EB9592AB028C3009DCEF5 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31EB9582AB028C3009DCEF5 /* City.swift */; };
 		F31EB95C2AB032DC009DCEF5 /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31EB95B2AB032DC009DCEF5 /* SectionView.swift */; };
 		F34678262AAC3A1D00C12A50 /* Coin.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34678252AAC3A1D00C12A50 /* Coin.swift */; };
+		F34D1CB42AB329F8003405EF /* MainViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D1CB32AB329F8003405EF /* MainViewHelper.swift */; };
 		F359D0822AAC4C2900BA427A /* UINavigationBarAppearance+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = F359D0812AAC4C2900BA427A /* UINavigationBarAppearance+Convenience.swift */; };
 		F359D0862AAC4FEC00BA427A /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F359D0852AAC4FEC00BA427A /* SettingsViewController.swift */; };
 		F359D0882AAC5B2700BA427A /* SettingPreferenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F359D0872AAC5B2700BA427A /* SettingPreferenceManager.swift */; };
@@ -55,6 +56,7 @@
 		F31EB9582AB028C3009DCEF5 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		F31EB95B2AB032DC009DCEF5 /* SectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionView.swift; sourceTree = "<group>"; };
 		F34678252AAC3A1D00C12A50 /* Coin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coin.swift; sourceTree = "<group>"; };
+		F34D1CB32AB329F8003405EF /* MainViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewHelper.swift; sourceTree = "<group>"; };
 		F359D0812AAC4C2900BA427A /* UINavigationBarAppearance+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBarAppearance+Convenience.swift"; sourceTree = "<group>"; };
 		F359D0852AAC4FEC00BA427A /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		F359D0872AAC5B2700BA427A /* SettingPreferenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPreferenceManager.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 			children = (
 				F31EB95A2AB032C7009DCEF5 /* Views */,
 				F3ADA5CF2AA99C0F00982D05 /* MainViewController.swift */,
+				F34D1CB32AB329F8003405EF /* MainViewHelper.swift */,
 				F30038082AAF8BD80087A8C2 /* MainViewModel.swift */,
 			);
 			path = Main;
@@ -430,6 +433,7 @@
 				F3A5CA422AB203D900ADC362 /* CoinsView.swift in Sources */,
 				F3B9DFB82AAB5352004CEFA4 /* ApiServices.swift in Sources */,
 				F3B3BE2A2AB180A600B63159 /* WeatherView.swift in Sources */,
+				F34D1CB42AB329F8003405EF /* MainViewHelper.swift in Sources */,
 				F370BE152AA9BCB7006F0461 /* LocalizedStrings.swift in Sources */,
 				F370BE112AA9BC09006F0461 /* UIView+Convenience.swift in Sources */,
 				F3E521D42AA9B86D00799337 /* Colors.swift in Sources */,

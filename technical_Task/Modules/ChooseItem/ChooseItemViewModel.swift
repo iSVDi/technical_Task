@@ -80,11 +80,11 @@ class ChooseItemViewModel {
                 settings.city = newCity
             }
         case let .coins(count):
-            guard var coins = settings.coins,
-                    let coin = item as? Coin,
-                    !coins.contains(where: {$0.commonId == coin.commonId}) else {
+            guard let coin = item as? Coin else {
                 return
             }
+            
+            var coins = settings.coins ?? []
             
             if coins.count == count {
                 coins.removeFirst()

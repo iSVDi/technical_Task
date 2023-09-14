@@ -47,7 +47,7 @@ class SettingPreferenceManager: PreferenceManager<SettingPreferenceManagerKeys> 
     var coins: [Coin]? {
         get {
             guard let data = object(for: .selectedCoins) as? Data else {
-                return []
+                return nil
             }
             return try? JSONDecoder().decode([Coin].self, from: data)
         } set {

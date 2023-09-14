@@ -17,10 +17,12 @@ class MainViewController: UIViewController {
     
     private let sectionHeight: CGFloat = Constants.screenHeight * 0.35
     private let scrollView = ViewsFactory.defaultScrollView()
+    private lazy var viewHelper = MainViewHelper(self)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         commonInit()
+        input.send(.viewDidLoad)
     }
     
     private func commonInit() {
@@ -30,19 +32,22 @@ class MainViewController: UIViewController {
         bind()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        input.send(.viewWillApper)
-    }
-    
     private func bind() {
         let output = viewModel.transform(input: input.eraseToAnyPublisher())
         output.receive(on: DispatchQueue.main)
             .sink { [weak self] event in
                 switch event {
-                case let .changeOrder(titles: titles):
+                case let .setSections(titles: titles):
                     self?.updateSections(titles: titles)
-                case let .cityUpdated(key), let .coinsUpdated(key):
-                    self?.updateSectionWithKey(key)
+                case let .updateMapSection(coordinates, city):
+                    self?.viewHelper.prepareMapView(coordinate: coordinates, city: city)
+                    self?.updateSectionWithKey(.city)
+                case let .updateWeatherSection(weather):
+                    self?.viewHelper.prepareWeatherView(weather)
+                    self?.updateSectionWithKey(.weather)
+                case let .updateCoinsSection(coins):
+                    self?.viewHelper.prepareCoinsView(coins)
+                    self?.updateSectionWithKey(.coins)
                 }
             }.store(in: &cancellables)
     }
@@ -65,14 +70,14 @@ class MainViewController: UIViewController {
         scrollView.edgesToSuperview(usingSafeArea: true)
     }
     
-    private func updateSectionWithKey(_ key: String.SectionsName) {
+    func updateSectionWithKey(_ key: String.SectionsName) {
         let section = scrollView.subviews.compactMap { view in
             return view as? SectionView
         }.first { section in
             section.titleKey == key
         }
-        if let view = viewModel.sectionViews[key] {
-            section?.setData(titleKey: key, view: view)
+        if let view = viewHelper.sectionSubviews[key] {
+            section?.setData(titleKey: key, subview: view)
             section?.turnLoadingState(false)
         }
     }
@@ -83,17 +88,13 @@ class MainViewController: UIViewController {
             guard let titleKey = String.SectionsName.init(rawValue: title) else {
                 return UIView()
             }
-            let view = viewModel.sectionViews[titleKey]
-            sectionView.setData(titleKey: titleKey, view: view)
+            let sectionSubview = viewHelper.sectionSubviews[titleKey]
+            sectionView.setData(titleKey: titleKey, subview: sectionSubview)
             switch titleKey {
-            case .city:
-                sectionView.turnLoadingState(viewModel.settingsManager.city != nil)
-            case .weather:
+            case .city, .weather:
                 sectionView.turnLoadingState(viewModel.settingsManager.city != nil)
             case .coins:
-                if let coins = viewModel.settingsManager.coins, !coins.isEmpty  {
-                    sectionView.turnLoadingState(true)
-                }
+                sectionView.turnLoadingState(viewModel.settingsManager.coins != nil)
             }
             
             let output = sectionView.bind()
@@ -117,7 +118,7 @@ class MainViewController: UIViewController {
     }
     
     private func openChooseItem(_ mode: ChooseItemMode) {
-        let controller = ChooseItemViewController.prepare(mode)
+        let controller = ChooseItemViewController.prepare(mode, from: self)
         pushViewController(controller)
     }
     
