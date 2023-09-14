@@ -71,8 +71,9 @@ class MainViewController: UIViewController {
         }.first { section in
             section.titleKey == key
         }
-        if let view = viewModel.sectionViews[key.rawValue] {
+        if let view = viewModel.sectionViews[key] {
             section?.setData(titleKey: key, view: view)
+            section?.turnLoadingState(false)
         }
     }
     
@@ -86,11 +87,9 @@ class MainViewController: UIViewController {
             guard let titleKey = String.SectionsName.init(rawValue: title) else {
                 return UIView()
             }
-            if let view = viewModel.sectionViews[title] {
-                sectionView.setData(titleKey: titleKey, view: view)
-            } else {
-                sectionView.setData(titleKey: titleKey)
-            }
+            let view = viewModel.sectionViews[titleKey]
+            sectionView.setData(titleKey: titleKey, view: view)
+            
             
             let output = sectionView.bind()
             output.sink { [weak self] sectionName in

@@ -15,11 +15,13 @@ class SectionView: UIView {
     private let label = ViewsFactory.defaultLabel()
     private let subview = UIView()
     private let selectButton = ViewsFactory.defaultButton()
+    private let loadingIndicator = UIActivityIndicatorView()
     private(set) var titleKey: String.SectionsName?
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
         commonInit()
+        turnLoadingState()
     }
     
     required init?(coder: NSCoder) {
@@ -30,10 +32,20 @@ class SectionView: UIView {
         return output.eraseToAnyPublisher()
     }
     
-    func setData(titleKey: String.SectionsName, view: UIView? = nil) {
+    func turnLoadingState(_ state: Bool = true) {
+        subview.addSubview(loadingIndicator)
+        loadingIndicator.edgesToSuperview()
+        if state {
+            loadingIndicator.startAnimating()
+        } else {
+            loadingIndicator.stopAnimating()
+        }
+        selectButton.isEnabled = !loadingIndicator.isAnimating
+    }
+    
+    func setData(titleKey: String.SectionsName, view: UIView?) {
         label.text = ^titleKey
         self.titleKey = titleKey
-        
         
         guard let view = view else {
             setupSelectButton(view == nil)
@@ -84,6 +96,7 @@ class SectionView: UIView {
             selectButton.backgroundColor = .appSystemBlue
             wrappedButton.backgroundColor = .appSystemBlue
         } else {
+            
             selectButton.setImage(AppImage.settings.uiImageWith(tint: .appSystemBlue), for: .normal)
             subview.addSubview(selectButton)
             let offset: CGFloat = 10
@@ -91,6 +104,7 @@ class SectionView: UIView {
             selectButton.backgroundColor = .appClear
             selectButton.rightToSuperview(offset: -offset)
             selectButton.topToSuperview(offset: offset)
+            selectButton.isEnabled = !loadingIndicator.isAnimating
         }
     }
     

@@ -47,8 +47,8 @@ class CoinsView: UIView {
         priceLabel.text = coin.price.toString() + " $"
         let pricesChangesLabel = ViewsFactory.defaultLabel(alignment: .center)
         let priceUp = coin.priceChange >= 0
-        let preffix = priceUp ? "" : "- "
-        pricesChangesLabel.text = preffix + coin.priceChange.toString()
+        let postfix = priceUp ? "↑" : "↓"
+        pricesChangesLabel.text = [coin.priceChange.toString(), postfix].joined(separator: " ")
         pricesChangesLabel.textColor = priceUp ? UIColor.appSystemGreen : UIColor.appSystemRed
         
         [nameLabel, coinImageView, priceLabel, pricesChangesLabel].forEach { view in

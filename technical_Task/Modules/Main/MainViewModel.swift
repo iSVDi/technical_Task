@@ -25,8 +25,12 @@ class MainViewModel {
     private let settingsManager = SettingPreferenceManager()
     private let output: PassthroughSubject<Output, Never> = .init()
     private var cancellables = Set<AnyCancellable>()
-    private(set) var sectionViews: [String : UIView?] = [:]
+    private(set) var sectionViews: [String.SectionsName : UIView] = [:]
     private let apiServices = ApiServices()
+    
+    init() {
+        prepareSections()
+    }
     
     func transform(input: AnyPublisher<Input, Never>) -> AnyPublisher<Output, Never> {
         input.sink { [weak self] value in
@@ -44,11 +48,29 @@ class MainViewModel {
         return output.eraseToAnyPublisher()
     }
     
+    private func prepareSections() {
+        let keys: [String.SectionsName] = {
+            var res: [String.SectionsName] = []
+            if settingsManager.city != nil {
+                res.append(contentsOf: [.city, .weather])
+            }
+            if settingsManager.coins != nil {
+                res.append(.coins)
+            }
+            return res
+        }()
+        
+        keys.forEach { section in
+            let view = SectionView()
+            sectionViews[section] = view
+        }
+    }
+    
     private func prepareMapView() {
         guard let city = settingsManager.city else {
             return
         }
-        let map = sectionViews[String.SectionsName.city.rawValue] as? MKMapView ?? MKMapView()
+        let map = sectionViews[String.SectionsName.city] as? MKMapView ?? MKMapView()
         
         apiServices.getCityCoordinates(city.title).sink { completion in
             guard case let .failure(error) = completion else {
@@ -73,7 +95,7 @@ class MainViewModel {
             map.isZoomEnabled = false
             map.isRotateEnabled = false
             map.isScrollEnabled = false
-            self.sectionViews[String.SectionsName.city.rawValue] = map
+            self.sectionViews[String.SectionsName.city] = map
             self.output.send(.cityUpdated(.city))
         }.store(in: &cancellables)
     }
@@ -108,7 +130,7 @@ class MainViewModel {
             }
             let weatherView = WeatherView()
             weatherView.setData(weather: weather)
-            self.sectionViews[String.SectionsName.weather.rawValue] = weatherView
+            self.sectionViews[String.SectionsName.weather] = weatherView
             self.output.send(.cityUpdated(.weather))
         }.store(in: &cancellables)
     }
@@ -130,7 +152,7 @@ class MainViewModel {
             }
             let coinsView = CoinsView()
             coinsView.setData(coins)
-            self.sectionViews[String.SectionsName.coins.rawValue] = coinsView
+            self.sectionViews[String.SectionsName.coins] = coinsView
             self.output.send(.coinsUpdated(.coins))
         }.store(in: &cancellables)
     }
