@@ -9,8 +9,10 @@ import Foundation
 
 extension Double {
 
-    func toString(format: String = "%2d") -> String {
-        return String(format: format, Int(self))
+    var degreesToRadians: Self { return self * .pi / 180 }
+    
+    func toString(format: String = "%.2f") -> String {
+        return String(format: format, self)
     }
 
 }

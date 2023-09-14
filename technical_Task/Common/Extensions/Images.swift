@@ -14,6 +14,7 @@ enum AppImage: String {
     case lines = "line.3.horizontal"
     case plus = "plus"
     case checkmark = "checkmark"
+    case systemDirection = "arrowtriangle.up.fill"
     
     var uiImage: UIImage? {
         return UIImage(named: rawValue) ?? UIImage(systemName: rawValue)

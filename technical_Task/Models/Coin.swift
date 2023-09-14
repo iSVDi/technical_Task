@@ -23,7 +23,7 @@ struct Coin: Codable {
 }
 
 extension Coin: CommonItem {
-    
+    var commonId: String { return id }
     var title: String { return name }
     var countryShortName: String? { return nil }
     var urlImage: URL? { return imageUrl }

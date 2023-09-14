@@ -29,19 +29,33 @@ class SettingPreferenceManager: PreferenceManager<SettingPreferenceManagerKeys> 
         }
     }
     
-    var city: String {
+    var city: City? {
         get {
-            return string(for: .selectedCity)
+            guard let data = object(for: .selectedCity) as? Data else {
+                return nil
+            }
+            return try? JSONDecoder().decode(City.self, from: data)
         } set {
-            setString(newValue, for: .selectedCity)
+            guard let city = newValue,
+                    let data = try? JSONEncoder().encode(city) else {
+                return
+            }
+            setObject(data, for: .selectedCity)
         }
     }
     
-    var coins: [String] {
+    var coins: [Coin]? {
         get {
-            return stringArray(for: .selectedCoins)
+            guard let data = object(for: .selectedCoins) as? Data else {
+                return []
+            }
+            return try? JSONDecoder().decode([Coin].self, from: data)
         } set {
-            setStringArray(newValue, for: .selectedCoins)
+            guard let coins = newValue,
+                    let data = try? JSONEncoder().encode(coins) else {
+                return
+            }
+            setObject(data, for: .selectedCoins)
         }
     }
     

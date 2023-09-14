@@ -17,6 +17,7 @@ struct City: Codable {
 }
 
 extension City: CommonItem {
+    var commonId: String { return id }
     var title: String { return name }
     var countryShortName: String? { return country }
     var urlImage: URL? { return nil }

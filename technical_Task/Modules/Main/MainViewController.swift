@@ -41,6 +41,8 @@ class MainViewController: UIViewController {
                 switch event {
                 case let .changeOrder(titles: titles):
                     self?.updateSections(titles: titles)
+                case let .cityUpdated(key), let .coinsUpdated(key):
+                    self?.updateSectionWithKey(key)
                 }
             }.store(in: &cancellables)
     }
@@ -61,6 +63,17 @@ class MainViewController: UIViewController {
     private func setupLayout() {
         view.addSubview(scrollView)
         scrollView.edgesToSuperview(usingSafeArea: true)
+    }
+    
+    private func updateSectionWithKey(_ key: String.SectionsName) {
+        let section = scrollView.subviews.compactMap { view in
+            return view as? SectionView
+        }.first { section in
+            section.titleKey == key
+        }
+        if let view = viewModel.sectionViews[key.rawValue] {
+            section?.setData(titleKey: key, view: view)
+        }
     }
     
     private func updateSections(titles: [String]) {

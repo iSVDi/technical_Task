@@ -14,6 +14,7 @@ enum ChooseItemMode: Equatable {
 }
 
 protocol CommonItem {
+    var commonId: String { get }
     var title: String { get }
     
     var countryShortName: String? { get }

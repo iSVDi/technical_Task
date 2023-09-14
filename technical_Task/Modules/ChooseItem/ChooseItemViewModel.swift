@@ -31,9 +31,11 @@ class ChooseItemViewModel {
     var selectedLabel: String {
         switch mode {
         case .city:
-            return settings.city
+            return settings.city?.title ?? ""
         case .coins:
-            return settings.coins.joined(separator: " ")
+            return settings.coins?
+                .map { $0.title }
+                .joined(separator: " ") ?? ""
         }
     }
     
@@ -60,27 +62,34 @@ class ChooseItemViewModel {
     func isItemSelected(_ item: CommonItem) -> Bool {
         switch mode {
         case .city:
-            return settings.city == item.title
+            return settings.city?.id == item.commonId
         case .coins(_):
-            return settings.coins.contains(item.title.lowercased())
+            guard let coins = settings.coins else {
+                return false
+            }
+            return coins
+                .map { $0.id }
+                .contains(item.commonId)
         }
     }
     
     func selectItem(_ item: CommonItem) {
         switch mode {
         case .city:
-            settings.city = item.title
+            if let newCity = item as? City {
+                settings.city = newCity
+            }
         case let .coins(count):
-            var coins = settings.coins
-            
-            if coins.contains(item.title.lowercased()) {
+            guard var coins = settings.coins,
+                    let coin = item as? Coin,
+                    !coins.contains(where: {$0.commonId == coin.commonId}) else {
                 return
             }
             
             if coins.count == count {
                 coins.removeFirst()
             }
-            coins.append(item.title.lowercased())
+            coins.append(coin)
             settings.coins = coins
         }
         output.send(.selectedItemsUpdate)

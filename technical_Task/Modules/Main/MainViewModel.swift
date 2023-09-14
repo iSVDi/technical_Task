@@ -18,6 +18,8 @@ class MainViewModel {
 
     enum Output {
         case changeOrder(titles: [String])
+        case cityUpdated(_ key: String.SectionsName)
+        case coinsUpdated(_ key: String.SectionsName)
     }
     
     private let settingsManager = SettingPreferenceManager()
@@ -37,20 +39,18 @@ class MainViewModel {
                 self.prepareWeatherView()
                 self.prepareCoinsView()
                 self.output.send(.changeOrder(titles: self.settingsManager.sectionsOrder))
-                
             }
         }.store(in: &cancellables)
         return output.eraseToAnyPublisher()
     }
     
     private func prepareMapView() {
-        guard !settingsManager.city.isEmpty else {
-            sectionViews[String.SectionsName.city.rawValue] = nil
+        guard let city = settingsManager.city else {
             return
         }
         let map = sectionViews[String.SectionsName.city.rawValue] as? MKMapView ?? MKMapView()
         
-        apiServices.getCityCoordinates(settingsManager.city).sink { completion in
+        apiServices.getCityCoordinates(city.title).sink { completion in
             guard case let .failure(error) = completion else {
                 return
             }
@@ -63,7 +63,7 @@ class MainViewModel {
                 map.removeAnnotation(annotation)
             }
             let annotation = MKPointAnnotation()
-            annotation.title = self.settingsManager.city
+            annotation.title = self.settingsManager.city?.title
             let clCoordniate = CLLocationCoordinate2D(latitude: coordinate.lat, longitude: coordinate.lon)
             annotation.coordinate = clCoordniate
             map.addAnnotation(annotation)
@@ -74,17 +74,16 @@ class MainViewModel {
             map.isRotateEnabled = false
             map.isScrollEnabled = false
             self.sectionViews[String.SectionsName.city.rawValue] = map
-            self.output.send(.changeOrder(titles: self.settingsManager.sectionsOrder))
+            self.output.send(.cityUpdated(.city))
         }.store(in: &cancellables)
     }
     
     private func prepareWeatherView() {
-        guard !settingsManager.city.isEmpty else {
-            sectionViews[String.SectionsName.weather.rawValue] = nil
+        guard let city = settingsManager.city else {
             return
         }
         
-        apiServices.getCityCoordinates(settingsManager.city).sink { completion in
+        apiServices.getCityCoordinates(city.title).sink { completion in
             guard case let .failure(error) = completion else {
                 return
             }
@@ -110,20 +109,16 @@ class MainViewModel {
             let weatherView = WeatherView()
             weatherView.setData(weather: weather)
             self.sectionViews[String.SectionsName.weather.rawValue] = weatherView
-            self.output.send(.changeOrder(titles: self.settingsManager.sectionsOrder))
+            self.output.send(.cityUpdated(.weather))
         }.store(in: &cancellables)
-
     }
     
     private func prepareCoinsView() {
+        guard let coins = settingsManager.coins, !coins.isEmpty else {
+            return
+        }
         
-        //TODO: uncomment back. Commented because of api limits
-//        guard !settingsManager.coins.isEmpty else {
-//            sectionViews[String.SectionsName.coins.rawValue] = nil
-//            return
-//        }
-        
-        let coinsTitle = settingsManager.coins.joined(separator: ", ")
+        let coinsTitle = coins.map({ $0.id}).joined(separator: ", ")
         apiServices.getSelectedCoins(coinsTitle).sink { completion in
             guard case let .failure(error) = completion else {
                 return
@@ -134,19 +129,10 @@ class MainViewModel {
                 return
             }
             let coinsView = CoinsView()
-            let range = 0..<3
-            let hardCoins = range.map { _ in
-                return Coin(id: "asd",
-                     name: "Bitcoin",
-                     imageUrl: URL(string: "https://openweathermap.org/img/wn/01d.png")!,
-                     price: 3000.0,
-                     priceChange: 23)
-            }
-            coinsView.setData(hardCoins)
+            coinsView.setData(coins)
             self.sectionViews[String.SectionsName.coins.rawValue] = coinsView
-            self.output.send(.changeOrder(titles: self.settingsManager.sectionsOrder))
+            self.output.send(.coinsUpdated(.coins))
         }.store(in: &cancellables)
-
     }
     
 }

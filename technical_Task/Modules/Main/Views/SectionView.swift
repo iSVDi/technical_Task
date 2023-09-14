@@ -15,7 +15,7 @@ class SectionView: UIView {
     private let label = ViewsFactory.defaultLabel()
     private let subview = UIView()
     private let selectButton = ViewsFactory.defaultButton()
-    private var titleKey: String.SectionsName?
+    private(set) var titleKey: String.SectionsName?
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -38,6 +38,9 @@ class SectionView: UIView {
         guard let view = view else {
             setupSelectButton(view == nil)
             return
+        }
+        subview.subviews.forEach {
+            $0.removeFromSuperview()
         }
         subview.addSubview(view)
         view.layer.cornerRadius = 12
@@ -84,6 +87,7 @@ class SectionView: UIView {
             selectButton.setImage(AppImage.settings.uiImageWith(tint: .appSystemBlue), for: .normal)
             subview.addSubview(selectButton)
             let offset: CGFloat = 10
+            selectButton.setTitle("", for: .normal)
             selectButton.backgroundColor = .appClear
             selectButton.rightToSuperview(offset: -offset)
             selectButton.topToSuperview(offset: offset)
