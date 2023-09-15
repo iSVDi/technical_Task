@@ -5,18 +5,9 @@
 //  Created by Daniil on 07.09.2023.
 //
 
-import PKHUD
 import SafariServices
 
 extension UIViewController {
-
-    func showHUD() {
-        HUD.show(.progress)
-    }
-
-    func hideHUD() {
-        HUD.hide()
-    }
 
     func applyDefaultSettings(withBackgroundColor color: UIColor = .appBackground) {
         view.backgroundColor = color
