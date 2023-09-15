@@ -13,7 +13,7 @@ class ApiServices {
     private let provider = MoyaProvider<ApiRequestsTypes>()
     
     func getCityCoordinates(_ city: String ) -> AnyPublisher<[Coordinates], Error> {
-        return arrayRequest(target: .loadCityCoordinates(city))
+        return handleArrayAnswer(target: .loadCityCoordinates(city))
     }
     
     func getWeather(coordinates: Coordinates) -> AnyPublisher<Weather, Error> {
@@ -26,14 +26,14 @@ class ApiServices {
     }
     
     func getCoins() -> AnyPublisher<[Coin], Error> {
-        return arrayRequest(target: .loadCoins)
+        return handleArrayAnswer(target: .loadCoins)
     }
     
     func getSelectedCoins(_ coins: String) -> AnyPublisher<[Coin], Error> {
-        return arrayRequest(target: .loadSelectedCoins(coins))
+        return handleArrayAnswer(target: .loadSelectedCoins(coins))
     }
     
-    private func arrayRequest<T: Decodable>(target: ApiRequestsTypes) -> AnyPublisher<[T], Error> {
+    private func handleArrayAnswer<T: Decodable>(target: ApiRequestsTypes) -> AnyPublisher<[T], Error> {
         return provider.requestPublisher(target)
             .catch { error in
                 return Fail(error: error).eraseToAnyPublisher()

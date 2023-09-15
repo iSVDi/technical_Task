@@ -9,7 +9,6 @@ target 'technical_Task' do
 
   # Pods for technical_Task
   pod 'TinyConstraints', '4.0.2'
-  pod 'PKHUD', '5.3.0'
   pod 'Moya/Combine', '15.0.0'
   pod "Kingfisher", '7.2.2'
 end

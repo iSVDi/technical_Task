@@ -34,12 +34,14 @@ class SectionView: UIView {
     func turnLoadingState(_ state: Bool) {
         if state {
             loadingIndicator.startAnimating()
+            sectionSubview.subviews.forEach {
+                $0.removeFromSuperview()
+            }
         } else {
             loadingIndicator.stopAnimating()
         }
         
         selectButton.isHidden = loadingIndicator.isAnimating
-        selectButton.superview?.isHidden = loadingIndicator.isAnimating
     }
     
     func setData(titleKey: String.SectionsName, subview: UIView?) {
@@ -50,9 +52,7 @@ class SectionView: UIView {
             setupSelectButton(true)
             return
         }
-        sectionSubview.subviews.forEach {
-            $0.removeFromSuperview()
-        }
+        
         sectionSubview.addSubview(subview)
         subview.layer.cornerRadius = 12
         subview.edgesToSuperview()

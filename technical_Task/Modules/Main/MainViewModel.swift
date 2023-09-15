@@ -21,6 +21,7 @@ class MainViewModel {
         case updateMapSection(_ coordinates: Coordinates, city: String)
         case updateWeatherSection(_ weather: Weather)
         case updateCoinsSection(_ coins: [Coin])
+        case startLoadingAnimation(_ section: String.SectionsName)
     }
     
     let settingsManager = SettingPreferenceManager()
@@ -36,19 +37,34 @@ class MainViewModel {
             }
             switch value {
             case .viewDidLoad:
+                self.output.send(.setSections(titles: self.settingsManager.sectionsOrder))
                 self.getMapData()
                 self.getCoins()
                 self.getWeatherData()
-                self.output.send(.setSections(titles: self.settingsManager.sectionsOrder))
+                self.setObservers()
             }
         }.store(in: &cancellables)
         return output.eraseToAnyPublisher()
+    }
+    
+    private func setObservers() {
+        NotificationCenter.Publisher(center: .default, name: AppNotification.cityUpdateNotification)
+            .sink { [weak self] _ in
+                self?.getMapData()
+                self?.getWeatherData()
+            }.store(in: &cancellables)
+        
+        NotificationCenter.Publisher(center: .default, name: AppNotification.coinsUpdateNotification)
+            .sink { [weak self] _ in
+                self?.getCoins()
+            }.store(in: &cancellables)
     }
     
     private func getMapData() {
         guard let city = settingsManager.city?.title else {
             return
         }
+        output.send(.startLoadingAnimation(.city))
         apiServices.getCityCoordinates(city).sink { [weak self] completion in
             self?.handleError(completion)
         } receiveValue: { [weak self] coordinatesObject in
@@ -63,6 +79,7 @@ class MainViewModel {
         guard let city = settingsManager.city?.title else {
             return
         }
+        output.send(.startLoadingAnimation(.weather))
         apiServices.getCityCoordinates(city).sink { [weak self] completion in
             self?.handleError(completion)
         } receiveValue: { [weak self] coordinatesObject in
@@ -87,6 +104,7 @@ class MainViewModel {
             .joined(separator: ", ") else {
             return
         }
+        output.send(.startLoadingAnimation(.coins))
         apiServices.getSelectedCoins(coins).sink { [weak self] completion in
             self?.handleError(completion)
         } receiveValue: { [weak self] coins in

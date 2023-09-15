@@ -17,6 +17,7 @@ class MainViewController: UIViewController {
     
     private let sectionHeight: CGFloat = Constants.screenHeight * 0.35
     private let scrollView = ViewsFactory.defaultScrollView()
+    private var sectionsView: [SectionView] = []
     private lazy var viewHelper = MainViewHelper(self)
     
     override func viewDidLoad() {
@@ -48,6 +49,8 @@ class MainViewController: UIViewController {
                 case let .updateCoinsSection(coins):
                     self?.viewHelper.prepareCoinsView(coins)
                     self?.updateSectionWithKey(.coins)
+                case let .startLoadingAnimation(section):
+                    self?.startLoadingAnimation(section: section)
                 }
             }.store(in: &cancellables)
     }
@@ -82,19 +85,16 @@ class MainViewController: UIViewController {
         }
     }
     
-    private func updateSections(titles: [String]) {
-        let views = titles.map { title in
+    private func updateSections(titles: [String], needLoading: Bool = true) {
+        let titleKeys = titles.compactMap { String.SectionsName.init(rawValue: $0) }
+        
+        let views = titleKeys.map { titleKey in
             let sectionView = SectionView()
-            guard let titleKey = String.SectionsName.init(rawValue: title) else {
-                return UIView()
-            }
             let sectionSubview = viewHelper.sectionSubviews[titleKey]
             sectionView.setData(titleKey: titleKey, subview: sectionSubview)
-            switch titleKey {
-            case .city, .weather:
-                sectionView.turnLoadingState(viewModel.settingsManager.city != nil)
-            case .coins:
-                sectionView.turnLoadingState(viewModel.settingsManager.coins != nil)
+                        
+            if needLoading {
+                startLoadingAnimation(section: titleKey)
             }
             
             let output = sectionView.bind()
@@ -108,6 +108,7 @@ class MainViewController: UIViewController {
             }.store(in: &cancellables)
             return sectionView
         }
+        sectionsView = views
         
         scrollView.subviews.forEach { $0.removeFromSuperview() }
         scrollView.stack(views, width: Constants.screenWidth)
@@ -117,8 +118,15 @@ class MainViewController: UIViewController {
         }
     }
     
+    private func startLoadingAnimation(section: String.SectionsName) {
+        guard let sectionView = sectionsView.first(where: {$0.titleKey == section}) else {
+            return
+        }
+        sectionView.turnLoadingState(true)
+    }
+    
     private func openChooseItem(_ mode: ChooseItemMode) {
-        let controller = ChooseItemViewController.prepare(mode, from: self)
+        let controller = ChooseItemViewController.prepare(mode)
         pushViewController(controller)
     }
     
@@ -128,7 +136,7 @@ class MainViewController: UIViewController {
     private func rightBarButtonHandler() {
         let settings = SettingsViewController()
         settings.transform().sink { [weak self] titles in
-            self?.updateSections(titles: titles)
+            self?.updateSections(titles: titles, needLoading: false)
         }.store(in: &cancellables)
         pushViewController(settings)
     }

@@ -13,6 +13,7 @@ class ChooseItemViewModel {
     
     enum Input {
         case viewDidLoad
+        case viewWillDisappear
         case selectItem(_ item: CommonItem)
     }
     
@@ -52,6 +53,8 @@ class ChooseItemViewModel {
             switch input {
             case .viewDidLoad:
                 self.handleViewDidLoad()
+            case.viewWillDisappear:
+                self.postNotification()
             case let .selectItem(item):
                 self.selectItem(item)
             }
@@ -124,6 +127,15 @@ class ChooseItemViewModel {
             self.output.send(.cities(self.getCities()))
         case .coins:
             self.handleCoinsPresenting()
+        }
+    }
+    
+    private func postNotification() {
+        switch mode {
+        case .city:
+            NotificationCenter.default.post(name: AppNotification.cityUpdateNotification, object: nil)
+        case .coins:
+            NotificationCenter.default.post(name: AppNotification.coinsUpdateNotification, object: nil)
         }
     }
    

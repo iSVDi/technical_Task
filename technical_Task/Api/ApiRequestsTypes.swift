@@ -6,7 +6,6 @@
 //
 
 import Moya
-import Combine
 
 enum ApiRequestsTypes {
     private static let apiKey = "52a37049e1b9b458866d5538e7ebeeb1"

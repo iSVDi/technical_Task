@@ -52,6 +52,10 @@ class ChooseItemViewController: UIViewController {
         input.send(.viewDidLoad)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        input.send(.viewWillDisappear)
+    }
+    
     // MARK: - Builder
      
     class func prepare(_ mode: ChooseItemMode) -> UIViewController {

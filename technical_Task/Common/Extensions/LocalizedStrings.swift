@@ -22,6 +22,8 @@ extension String {
         case errorTitle
     }
     
+    
+//    INFO: change carefully, it used in code
     enum SectionsName: String, CaseIterable {
         case city
         case weather
