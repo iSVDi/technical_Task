@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import MapKit
 import TinyConstraints
 
 class MainViewController: UIViewController {
@@ -17,14 +18,29 @@ class MainViewController: UIViewController {
     
     private let sectionHeight: CGFloat = Constants.screenHeight * 0.35
     private let scrollView = ViewsFactory.defaultScrollView()
+    
     private var sectionsView: [SectionView] = []
-    private lazy var viewHelper = MainViewHelper(self)
+    private var sectionSubviews: [String.SectionsName : UIView] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         commonInit()
         input.send(.viewDidLoad)
     }
+    
+    func updateSectionWithKey(_ key: String.SectionsName) {
+        let section = scrollView.subviews.compactMap { view in
+            return view as? SectionView
+        }.first { section in
+            section.titleKey == key
+        }
+        if let view = sectionSubviews[key] {
+            section?.setData(titleKey: key, subview: view)
+            section?.turnLoadingState(false)
+        }
+    }
+    
+    // MARK: - Helpers
     
     private func commonInit() {
         applyDefaultSettings(withBackgroundColor: .appSystemGray3)
@@ -41,13 +57,13 @@ class MainViewController: UIViewController {
                 case let .setSections(titles: titles):
                     self?.updateSections(titles: titles)
                 case let .updateMapSection(coordinates, city):
-                    self?.viewHelper.prepareMapView(coordinate: coordinates, city: city)
+                    self?.prepareMapView(coordinate: coordinates, city: city)
                     self?.updateSectionWithKey(.city)
                 case let .updateWeatherSection(weather):
-                    self?.viewHelper.prepareWeatherView(weather)
+                    self?.prepareWeatherView(weather)
                     self?.updateSectionWithKey(.weather)
                 case let .updateCoinsSection(coins):
-                    self?.viewHelper.prepareCoinsView(coins)
+                    self?.prepareCoinsView(coins)
                     self?.updateSectionWithKey(.coins)
                 case let .startLoadingAnimation(section):
                     self?.startLoadingAnimation(section: section)
@@ -73,26 +89,14 @@ class MainViewController: UIViewController {
         scrollView.edgesToSuperview(usingSafeArea: true)
     }
     
-    func updateSectionWithKey(_ key: String.SectionsName) {
-        let section = scrollView.subviews.compactMap { view in
-            return view as? SectionView
-        }.first { section in
-            section.titleKey == key
-        }
-        if let view = viewHelper.sectionSubviews[key] {
-            section?.setData(titleKey: key, subview: view)
-            section?.turnLoadingState(false)
-        }
-    }
-    
     private func updateSections(titles: [String], needLoading: Bool = true) {
         let titleKeys = titles.compactMap { String.SectionsName.init(rawValue: $0) }
         
         let views = titleKeys.map { titleKey in
             let sectionView = SectionView()
-            let sectionSubview = viewHelper.sectionSubviews[titleKey]
+            let sectionSubview = sectionSubviews[titleKey]
             sectionView.setData(titleKey: titleKey, subview: sectionSubview)
-                        
+            
             if needLoading {
                 startLoadingAnimation(section: titleKey)
             }
@@ -128,6 +132,41 @@ class MainViewController: UIViewController {
     private func openChooseItem(_ mode: ChooseItemMode) {
         let controller = ChooseItemViewController.prepare(mode)
         pushViewController(controller)
+    }
+    
+    // MARK: - View Helpers
+    
+    func prepareMapView(coordinate: Coordinates, city: String) {
+        let map = sectionSubviews[String.SectionsName.city] as? MKMapView ?? MKMapView()
+        map.annotations.forEach { annotation in
+            map.removeAnnotation(annotation)
+        }
+        let annotation = MKPointAnnotation()
+        annotation.title = city
+        
+        let clCoordniate = CLLocationCoordinate2D(latitude: coordinate.lat, longitude: coordinate.lon)
+        annotation.coordinate = clCoordniate
+        map.addAnnotation(annotation)
+        
+        let delta = 0.05
+        let region = MKCoordinateRegion(center: clCoordniate, span: .init(latitudeDelta: delta, longitudeDelta: delta))
+        map.setRegion(region, animated: true)
+        map.isZoomEnabled = false
+        map.isRotateEnabled = false
+        map.isScrollEnabled = false
+        sectionSubviews[String.SectionsName.city] = map
+    }
+    
+    func prepareWeatherView(_ weather: Weather) {
+        let weatherView = WeatherView()
+        weatherView.setData(weather: weather)
+        sectionSubviews[String.SectionsName.weather] = weatherView
+    }
+    
+    func prepareCoinsView(_ coins: [Coin]) {
+        let coinsView = CoinsView()
+        coinsView.setData(coins)
+        sectionSubviews[String.SectionsName.coins] = coinsView
     }
     
     // MARK: - Handlers
